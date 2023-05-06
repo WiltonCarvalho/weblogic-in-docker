@@ -24,15 +24,6 @@ docker tag container-registry.oracle.com/middleware/weblogic:12.2.1.3-dev oracle
 DOCKER_BUILDKIT=0 docker build -t 12213-domain-home-in-image \
       github.com/oracle/docker-images#main:/OracleWebLogic/samples/12213-domain-home-in-image
 ```
-# Set the WebLogic Properties
-```
-mkdir -p properties/docker-run
-cat <<'EOF'> properties/docker-run/security.properties
-username=myuser
-password=mypassword1
-JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
-EOF
-```
 # Run the Compose and wait for the containers to became healthy
 ```
 docker-compose up -d

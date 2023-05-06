@@ -1,10 +1,19 @@
 services:
   wlsadmin:
     image: 12213-domain-home-in-image
+    entrypoint: ""
+    command:
+      - sh
+      - -c
+      - |
+        cat <<'EOF'> /u01/oracle/properties/security.properties
+        username=myuser
+        password=mypassword1
+        JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
+        EOF
+        exec startAdminServer.sh
     ports:
       - 7001:7001
-    volumes:
-      - $PWD/properties/docker-run:/u01/oracle/properties:ro
     healthcheck:
       start_period: 30s
       interval: 10s
@@ -17,13 +26,21 @@ services:
       - MANAGED_SERV_NAME=managed-server1
       - VIRTUAL_HOST=localhost
       - VIRTUAL_PORT=8001
-    command: ["startManagedServer.sh"]
+    entrypoint: ""
+    command:
+      - sh
+      - -c
+      - |
+        cat <<'EOF'> /u01/oracle/properties/security.properties
+        username=myuser
+        password=mypassword1
+        JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
+        EOF
+        exec startManagedServer.sh
     expose:
       - 8001
     ports:
       - 8001:8001
-    volumes:
-      - $PWD/properties/docker-run:/u01/oracle/properties:ro
     healthcheck:
       start_period: 30s
       interval: 10s
@@ -39,13 +56,21 @@ services:
       - MANAGED_SERV_NAME=managed-server2
       - VIRTUAL_HOST=localhost
       - VIRTUAL_PORT=8001
-    command: ["startManagedServer.sh"]
+    entrypoint: ""
+    command:
+      - sh
+      - -c
+      - |
+        cat <<'EOF'> /u01/oracle/properties/security.properties
+        username=myuser
+        password=mypassword1
+        JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
+        EOF
+        exec startManagedServer.sh
     expose:
       - 8001
     ports:
       - 8002:8001
-    volumes:
-      - $PWD/properties/docker-run:/u01/oracle/properties:ro
     healthcheck:
       start_period: 30s
       interval: 10s
