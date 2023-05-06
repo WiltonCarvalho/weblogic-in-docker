@@ -19,7 +19,8 @@ docker pull \
 # Tag the image to match the Oracle's sample Dockerfile on Github
 ```
 docker tag \
-  container-registry.oracle.com/middleware/weblogic:12.2.1.3-dev oracle/weblogic:12.2.1.3-dev
+  container-registry.oracle.com/middleware/weblogic:12.2.1.3-dev \
+  oracle/weblogic:12.2.1.3-dev
 ```
 # Disable Buildkit and Build the Image from Github
 ```
