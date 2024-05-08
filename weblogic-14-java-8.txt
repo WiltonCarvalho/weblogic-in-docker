@@ -15,6 +15,7 @@ docker run --name wsl -it --rm -p 7001:7001 -p 9002:9002 \
   -e ADMINISTRATION_PORT_ENABLED=true \
   -e DOMAIN_NAME=mydomain \
   -e ADMIN_NAME=AdminServer \
+  -e PRODUCTION_MODE=prod \
   oracle/weblogic:14.1.1.0-dev-8-ol8
 
 docker exec -it wsl bash

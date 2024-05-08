@@ -1,6 +1,7 @@
 services:
+
   wlsadmin:
-    image: 12213-domain-home-in-image
+    image: weblogic-domain-home-in-image
     entrypoint: ""
     command:
       - sh
@@ -20,8 +21,9 @@ services:
       timeout: 5s
       retries: 3
       test: curl -fsSL http://localhost:7001/weblogic/ready
+
   MS1:
-    image: 12213-domain-home-in-image
+    image: weblogic-domain-home-in-image
     environment:
       - MANAGED_SERV_NAME=managed-server1
       - VIRTUAL_HOST=localhost
@@ -50,8 +52,9 @@ services:
     depends_on:
       wlsadmin:
         condition: service_healthy
+
   MS2:
-    image: 12213-domain-home-in-image
+    image: weblogic-domain-home-in-image
     environment:
       - MANAGED_SERV_NAME=managed-server2
       - VIRTUAL_HOST=localhost
@@ -80,8 +83,9 @@ services:
     depends_on:
       wlsadmin:
         condition: service_healthy
+
   nginx-proxy:
-    image: nginxproxy/nginx-proxy
+    image: nginxproxy/nginx-proxy:1.5.2-alpine
     ports:
       - "80:80"
     volumes:

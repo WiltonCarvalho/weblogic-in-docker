@@ -14,17 +14,17 @@ docker login container-registry.oracle.com
 # Pull a Weblogic Base Image
 ```
 docker pull \
-  container-registry.oracle.com/middleware/weblogic:12.2.1.3-dev
+  container-registry.oracle.com/middleware/weblogic:14.1.1.0-dev-8-ol8
 ```
-# Tag the image to match the Oracle's sample Dockerfile on Github
+# Tag the Base Image to match the Oracle's sample Dockerfile on Github
 ```
 docker tag \
-  container-registry.oracle.com/middleware/weblogic:12.2.1.3-dev \
+  container-registry.oracle.com/middleware/weblogic:14.1.1.0-dev-8-ol8 \
   oracle/weblogic:12.2.1.3-dev
 ```
-# Disable Buildkit and Build the Image from Github
+# Build the final Image from Github sample
 ```
-docker build -t 12213-domain-home-in-image \
+docker build -t weblogic-domain-home-in-image \
   github.com/oracle/docker-images#main:/OracleWebLogic/samples/12213-domain-home-in-image
 ```
 # Run the Compose and wait for the containers to became healthy
