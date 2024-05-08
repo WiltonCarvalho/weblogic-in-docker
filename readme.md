@@ -24,7 +24,7 @@ docker tag \
 ```
 # Disable Buildkit and Build the Image from Github
 ```
-DOCKER_BUILDKIT=0 docker build -t 12213-domain-home-in-image \
+docker build -t 12213-domain-home-in-image \
   github.com/oracle/docker-images#main:/OracleWebLogic/samples/12213-domain-home-in-image
 ```
 # Run the Compose and wait for the containers to became healthy

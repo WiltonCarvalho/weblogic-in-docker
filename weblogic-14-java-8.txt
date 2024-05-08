@@ -1,0 +1,29 @@
+docker pull \
+  container-registry.oracle.com/middleware/weblogic:14.1.1.0-dev-8-ol8
+
+docker tag \
+  container-registry.oracle.com/middleware/weblogic:14.1.1.0-dev-8-ol8 \
+  oracle/weblogic:14.1.1.0-dev-8-ol8
+
+cat <<'EOF'> /tmp/domain.properties
+username=user1
+password=password1
+EOF
+
+docker run --name wsl -it --rm -p 7001:7001 -p 9002:9002 \
+  -v /tmp/domain.properties:/u01/oracle/properties/domain.properties \
+  -e ADMINISTRATION_PORT_ENABLED=true \
+  -e DOMAIN_NAME=mydomain \
+  -e ADMIN_NAME=AdminServer \
+  oracle/weblogic:14.1.1.0-dev-8-ol8
+
+docker exec -it wsl bash
+
+mkdir -p mydeployments
+curl -fSL# https://tomcat.apache.org/tomcat-9.0-doc/appdev/sample/sample.war \
+  -o mydeployments/sample.war
+
+google-chrome --incognito https://localhost:9002/console
+
+google-chrome --incognito localhost:7001/sample/hello
+
