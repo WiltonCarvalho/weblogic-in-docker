@@ -20,11 +20,10 @@ docker run --name wsl -it --rm -p 7001:7001 -p 9002:9002 \
 
 docker exec -it wsl bash
 
-mkdir -p mydeployments
-curl -fSL# https://tomcat.apache.org/tomcat-9.0-doc/appdev/sample/sample.war \
-  -o mydeployments/sample.war
-
 google-chrome --incognito https://localhost:9002/console
+
+docker exec -it wsl bash
+curl -fSL# https://tomcat.apache.org/tomcat-9.0-doc/appdev/sample/sample.war -o sample.war
 
 google-chrome --incognito localhost:7001/sample/hello
 

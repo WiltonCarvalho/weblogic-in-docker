@@ -1,3 +1,7 @@
+volumes:
+  wlsadmin: {}
+  MS1: {}
+  MS2: {}
 services:
 
   wlsadmin:
@@ -12,6 +16,7 @@ services:
         password=mypassword1
         JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
         EOF
+        rm -f /u01/oracle/user_projects/domains/domain1/servers/*/logs/*.log
         exec startAdminServer.sh
     ports:
       - 7001:7001
@@ -21,6 +26,8 @@ services:
       timeout: 5s
       retries: 3
       test: curl -fsSL http://localhost:7001/weblogic/ready
+    volumes:
+      - wlsadmin:/u01/oracle/user_projects/domains/domain1
 
   MS1:
     image: weblogic-domain-home-in-image
@@ -38,6 +45,7 @@ services:
         password=mypassword1
         JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
         EOF
+        rm -f /u01/oracle/user_projects/domains/domain1/servers/*/logs/*.log
         exec startManagedServer.sh
     expose:
       - 8001
@@ -52,6 +60,8 @@ services:
     depends_on:
       wlsadmin:
         condition: service_healthy
+    volumes:
+      - MS1:/u01/oracle/user_projects/domains/domain1
 
   MS2:
     image: weblogic-domain-home-in-image
@@ -69,6 +79,7 @@ services:
         password=mypassword1
         JAVA_OPTIONS=-Dweblogic.StdoutDebugEnabled=false
         EOF
+        rm -f /u01/oracle/user_projects/domains/domain1/servers/*/logs/*.log
         exec startManagedServer.sh
     expose:
       - 8001
@@ -83,6 +94,8 @@ services:
     depends_on:
       wlsadmin:
         condition: service_healthy
+    volumes:
+      - MS2:/u01/oracle/user_projects/domains/domain1
 
   nginx-proxy:
     image: nginxproxy/nginx-proxy:1.5.2-alpine

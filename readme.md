@@ -32,9 +32,9 @@ docker build -t weblogic-domain-home-in-image \
 docker-compose up -d
 watch "docker-compose ps | grep healthy | grep -E 'MS|admin|nginx'"
 ```
-# Sample1 - Deploy Tomcat Sample WAR
+# weblogic.Deployer - Sample1 - Deploy Tomcat Sample WAR
 ```
-docker-compose exec -it wlsadmin bash
+docker run -it --rm --name deploy --net=host --entrypoint= weblogic-domain-home-in-image bash
 
 mkdir -p mydeployments
 curl -fSL# https://tomcat.apache.org/tomcat-9.0-doc/appdev/sample/sample.war \
@@ -50,7 +50,7 @@ google-chrome --incognito localhost/sample1/hello
 
 google-chrome --incognito http://localhost:7001/console
 ```
-# Sample2 - Deploy Weblogic Sample WAR
+# weblogic.Deployer - Sample2 - Deploy Weblogic Sample WAR
 ```
 docker-compose exec -it wlsadmin bash
 
