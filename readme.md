@@ -52,7 +52,7 @@ google-chrome --incognito http://localhost:7001/console
 ```
 # weblogic.Deployer - Sample2 - Deploy Weblogic Sample WAR
 ```
-docker-compose exec -it wlsadmin bash
+docker run -it --rm --name deploy --net=host --entrypoint= weblogic-domain-home-in-image bash
 
 mkdir /tmp/docker-images
 curl -fSL# https://github.com/oracle/docker-images/tarball/main | \
